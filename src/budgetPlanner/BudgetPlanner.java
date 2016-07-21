@@ -6,6 +6,7 @@
 package budgetPlanner;
 
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.DefaultComboBoxModel;
@@ -26,6 +27,12 @@ public class BudgetPlanner extends javax.swing.JFrame {
      */
     public BudgetPlanner() {
         initComponents();
+        try{
+             db = new HandleFile();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+       
     }
 
     /**
@@ -121,37 +128,37 @@ public class BudgetPlanner extends javax.swing.JFrame {
         // TODO add your handling code here:
         category = jComboBox1.getItemAt(jComboBox1.getSelectedIndex()).toString();
         amount  = Double.parseDouble(jTextField1.getText());
-        json = new JSONObject();
-        json.put("category",category );
-        json.put("amount", amount);
-        arr.add(json);
-       
+        try{
+        db.writeData(category, amount);
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
         jTextField1.setText("");
     }//GEN-LAST:event_saveAmount
 
     private void showSpendings(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showSpendings
         // TODO add your handling code here:
-        JSONArray jsonArray = null;
-        file.writeData(arr.toString());
-        try{
-            jsonArray = file.getData();
-        }catch(ParseException e){
-            e.printStackTrace();
-        }
-        
-        for(Object obj : jsonArray){
-            JSONObject object = (JSONObject)obj;
-            list1.add("category : "+object.get("category")+"Amount : "+object.get("amount"));
-        }
-        
-        
-        list1.setVisible(true);
+//        JSONArray jsonArray = null;
+//       
+//        try{
+//            jsonArray = file.getData();
+//        }catch(ParseException e){
+//            e.printStackTrace();
+//        }
+//        
+//        for(Object obj : jsonArray){
+//            JSONObject object = (JSONObject)obj;
+//            list1.add("category : "+object.get("category")+"Amount : "+object.get("amount"));
+//        }
+//        
+//        
+//        list1.setVisible(true);
     }//GEN-LAST:event_showSpendings
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]){
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -186,10 +193,9 @@ public class BudgetPlanner extends javax.swing.JFrame {
     //data structure to store values
     Map<String,Double> data = new HashMap<String,Double>();
     JSONObject json;
-    JSONArray arr = new JSONArray();
     String category;
     Double amount;
-    HandleFile file = new HandleFile();
+    HandleFile db;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
