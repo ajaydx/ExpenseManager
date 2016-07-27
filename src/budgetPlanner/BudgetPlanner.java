@@ -6,13 +6,9 @@
 package budgetPlanner;
 
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.DefaultComboBoxModel;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
 
 
 /**
@@ -50,6 +46,7 @@ public class BudgetPlanner extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         list1 = new java.awt.List();
         jButton2 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,13 +93,26 @@ public class BudgetPlanner extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 142, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 136, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(170, 170, 170)
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton2)
@@ -116,9 +126,14 @@ public class BudgetPlanner extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addGap(13, 13, 13)
-                .addComponent(list1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addGap(13, 13, 13)
+                        .addComponent(list1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         pack();
@@ -137,22 +152,8 @@ public class BudgetPlanner extends javax.swing.JFrame {
     }//GEN-LAST:event_saveAmount
 
     private void showSpendings(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showSpendings
-        // TODO add your handling code here:
-//        JSONArray jsonArray = null;
-//       
-//        try{
-//            jsonArray = file.getData();
-//        }catch(ParseException e){
-//            e.printStackTrace();
-//        }
-//        
-//        for(Object obj : jsonArray){
-//            JSONObject object = (JSONObject)obj;
-//            list1.add("category : "+object.get("category")+"Amount : "+object.get("amount"));
-//        }
-//        
-//        
-//        list1.setVisible(true);
+        // TODO add your handling  here:
+        db.getData();
     }//GEN-LAST:event_showSpendings
 
     /**
@@ -191,16 +192,17 @@ public class BudgetPlanner extends javax.swing.JFrame {
     }
 
     //data structure to store values
-    Map<String,Double> data = new HashMap<String,Double>();
-    JSONObject json;
+    
     String category;
     Double amount;
     HandleFile db;
+    Map<String,Double> visualData = new HashMap<>();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<Categories> jComboBox1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField1;
     private java.awt.List list1;
     // End of variables declaration//GEN-END:variables
